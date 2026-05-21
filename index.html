@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Dyspozytora | Logowanie</title>
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#111111">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+  <script src="assets/js/app-config.js" defer></script>
+  <script src="assets/js/common.js" defer></script>
+</head>
+
+<body class="layout layout--auth">
+  <main class="auth-card" aria-labelledby="login-heading">
+    <header class="auth-card__header">
+      <img src="assets/img/logo.png" alt="Logo jednostki" class="auth-card__logo" />
+      <span id="login-heading" class="sr-only">Logowanie do panelu dyspozytora</span>
+    </header>
+
+    <form id="login-form" class="auth-form" autocomplete="on" novalidate>
+      <div class="form-field" data-field="phone">
+        <label for="login-phone" class="form-field__label">Numer telefonu</label>
+        <input
+          type="tel"
+          id="login-phone"
+          name="phone"
+          class="form-field__input"
+          placeholder="+48 123 456 789"
+          inputmode="tel"
+          autocomplete="tel"
+          required
+          aria-describedby="login-phone-help"
+        />
+        <p id="login-phone-help" class="form-field__hint">Wpisz numer telefonu. Prefiks +48 doda się automatycznie.</p>
+      </div>
+
+      <div class="form-field" data-field="password">
+        <label for="login-password" class="form-field__label">Hasło</label>
+        <input
+          type="password"
+          id="login-password"
+          name="password"
+          class="form-field__input"
+          placeholder="Minimum 6 znaków"
+          inputmode="text"
+          minlength="6"
+          required
+          aria-describedby="login-password-help"
+          autocomplete="current-password"
+        />
+        <p id="login-password-help" class="form-field__hint">Hasło może zawierać litery i cyfry (minimum 6 znaków).</p>
+      </div>
+
+      <p class="form-error" role="alert" hidden></p>
+
+      <div class="auth-actions">
+        <button type="submit" class="btn btn--primary">Zaloguj</button>
+        <button type="button" class="btn btn--link" data-action="go-register">Zarejestruj</button>
+      </div>
+    </form>
+
+    <footer class="auth-card__footer">
+      <p>Masz problem z logowaniem? Skontaktuj się z administratorem.</p>
+    </footer>
+  </main>
+
+  <script src="assets/js/pwa.js"></script>
+  <script src="assets/js/login.js"></script>
+</body>
+</html>

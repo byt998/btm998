@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- ======================================== -->
+    <!-- Sekcja: Head sprzętu JRG                 -->
+    <!-- Konfiguracja metadanych oraz stylów      -->
+    <!-- ======================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Sprzęt JRG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/equipment.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="sprzet-jrg">
+    <!-- Pasek nawigacji -->
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+<li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+<li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ======================================== -->
+    <!-- Sekcja: Lista sprzętu                    -->
+    <!-- Przegląd zasobów osobistego wyposażenia  -->
+    <!-- ======================================== -->
+    <main class="dashboard app-container" aria-labelledby="equipment-heading">
+        <header class="dashboard__header">
+            <h1 id="equipment-heading">Wyszukiwarka sprzętu</h1>
+            <p>Znajdź sprzęt po nazwie i sprawdź, na którym wozie oraz w jakiej skrytce się znajduje.</p>
+        </header>
+
+        <section class="content-panel equipment-search" aria-label="Wyszukiwarka sprzętu">
+            <form class="equipment-search__form" id="equipment-search-form" role="search">
+                <label class="sr-only" for="equipment-query">Nazwa sprzętu</label>
+                <input type="search" id="equipment-query" name="query" placeholder="Wpisz nazwę sprzętu (np. piła, wąż)" autocomplete="off" list="equipment-suggestions" />
+                <datalist id="equipment-suggestions"></datalist>
+                <label class="sr-only" for="equipment-vehicle-filter">Filtruj po wozie</label>
+                <select id="equipment-vehicle-filter" name="vehicle" class="equipment-search__vehicle">
+                    <option value="">Wszystkie wozy</option>
+                    <option value="411-22">411-22</option>
+                    <option value="411-23">411-23</option>
+                    <option value="411-25">411-25</option>
+                    <option value="411-26">411-26</option>
+                    <option value="411-51">411-51</option>
+                    <option value="411-43">411-43</option>
+                    <option value="411-71">411-71</option>
+                    <option value="411-91">411-91</option>
+                    <option value="411-59">411-59</option>
+                    <option value="411-22-tyl">411-22 Tył</option>
+                    <option value="411-23-tyl">411-23 Tył</option>
+                </select>
+                <button type="submit" class="btn btn--primary">Szukaj</button>
+            </form>
+            <p class="equipment-search__hint">Wyniki pobierane są z list wyposażenia wszystkich wozów.</p>
+            <p class="equipment-search__status" data-search-status hidden>Wyszukiwanie...</p>
+        </section>
+
+        <section class="content-panel equipment-results" aria-live="polite" aria-label="Wyniki wyszukiwania">
+            <div class="equipment-results__empty" data-results-empty>Wpisz nazwę sprzętu, aby rozpocząć wyszukiwanie.</div>
+            <div class="equipment-results__list" data-results-list></div>
+        </section>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

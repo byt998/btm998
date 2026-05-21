@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Rejestracja</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/commander-order.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/register.js" defer></script>
+</head>
+<body class="layout layout--auth">
+    <main class="auth-card" aria-labelledby="register-heading">
+        <header class="auth-card__header">
+            <h1 id="register-heading" class="auth-card__title">Nowe konto</h1>
+            <p class="auth-card__subtitle">Uzupełnij dane, aby utworzyć dostęp do panelu.</p>
+        </header>
+
+        <form id="register-form" class="auth-form" novalidate>
+            <div class="form-field" data-field="phone">
+                <label for="register-phone" class="form-field__label">Numer telefonu</label>
+                <input
+                    type="tel"
+                    id="register-phone"
+                    name="phone"
+                    class="form-field__input"
+                    placeholder="+48 987 654 321"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    required
+                    aria-describedby="register-phone-help"
+                />
+                <p id="register-phone-help" class="form-field__hint">Prefiks +48 zostanie dodany automatycznie.</p>
+            </div>
+
+            <div class="form-field" data-field="shift">
+                <label for="register-shift" class="form-field__label">Zmiana</label>
+                <select id="register-shift" name="shift" class="form-field__input" required>
+                    <option value="" disabled selected>Wybierz zmianę</option>
+                    <option value="zmiana-1">Zmiana 1</option>
+                    <option value="zmiana-2">Zmiana 2</option>
+                    <option value="zmiana-3">Zmiana 3</option>
+                    <option value="biuro">Biuro</option>
+                </select>
+            </div>
+
+            <div class="form-field" data-field="password">
+                <label for="register-password" class="form-field__label">Hasło</label>
+                <input
+                    type="password"
+                    id="register-password"
+                    name="password"
+                    class="form-field__input"
+                    placeholder="Minimum 6 znaków"
+                    inputmode="text"
+                    minlength="6"
+                    required
+                    aria-describedby="register-password-help"
+                    autocomplete="new-password"
+                    autocapitalize="none"
+                    spellcheck="false"
+                />
+                <p id="register-password-help" class="form-field__hint">Hasło może zawierać dowolne znaki (minimum 6 znaków).</p>
+            </div>
+
+            <div class="form-field" data-field="confirm-password">
+                <label for="register-password-confirm" class="form-field__label">Potwierdź hasło</label>
+                <input
+                    type="password"
+                    id="register-password-confirm"
+                    name="passwordConfirm"
+                    class="form-field__input"
+                    placeholder="Powtórz hasło"
+                    inputmode="text"
+                    minlength="6"
+                    required
+                    aria-describedby="register-confirm-help"
+                    autocomplete="new-password"
+                    autocapitalize="none"
+                    spellcheck="false"
+                />
+                <p id="register-confirm-help" class="form-field__hint">Wpisz ponownie dokładnie to samo hasło.</p>
+            </div>
+
+            <section class="form-field" aria-label="Funkcje użytkownika">
+                <label class="form-field__label">Funkcje</label>
+                <div class="commander-order__presence-controls">
+                    <label class="form-field">
+                        <span>Ratownik</span>
+                        <select id="register-ratownik" name="ratownik" class="form-field__input">
+                            <option value="false" selected>Nie</option>
+                            <option value="true">Tak</option>
+                        </select>
+                    </label>
+                    <label class="form-field">
+                        <span>Dowódca</span>
+                        <select id="register-dowodca" name="dowodca" class="form-field__input">
+                            <option value="false" selected>Nie</option>
+                            <option value="true">Tak</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="commander-order__presence-controls">
+                    <label class="form-field">
+                        <span>Kierowca</span>
+                        <select id="register-kierowca" name="kierowca" class="form-field__input">
+                            <option value="false" selected>Nie</option>
+                            <option value="true">Tak</option>
+                        </select>
+                    </label>
+                    <label class="form-field">
+                        <span>Nurek</span>
+                        <select id="register-nurek" name="nurek" class="form-field__input">
+                            <option value="false" selected>Nie</option>
+                            <option value="true">Tak</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <p class="form-error" role="alert" hidden></p>
+
+            <div class="auth-actions">
+                <button type="submit" class="btn btn--primary">Utwórz konto</button>
+                <button type="button" class="btn btn--link" data-action="go-login">Mam już konto</button>
+            </div>
+        </form>
+
+        <footer class="auth-card__footer">
+            <p>Dane trafiają do administratora, który aktywuje konto.</p>
+        </footer>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Na akcji</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/na-akcji.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="na-akcji">
+    <nav class="top-nav" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+<li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+<li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard action-module" aria-labelledby="module-heading">
+        <header class="dashboard__header">
+            <h1 id="module-heading">Na akcji</h1>
+            <p>Notuj najważniejsze dane z działań operacyjnych i udostępniaj je całej załodze.</p>
+        </header>
+
+        <div class="action-tabs" role="tablist" aria-label="Kategorie zdarzeń">
+            <button type="button" class="action-tab is-active" role="tab" aria-selected="true" aria-controls="tab-co" id="tab-co-btn" data-action-tab="co">Pomiary</button>
+            <button type="button" class="action-tab" role="tab" aria-selected="false" aria-controls="tab-fire" id="tab-fire-btn" data-action-tab="fire">Pożar</button>
+        </div>
+
+        <section class="content-panel action-panel" id="tab-co" role="tabpanel" aria-labelledby="tab-co-btn" data-tab-panel="co">
+            <div class="action-panel__intro">
+                <h2>Pomiary</h2>
+                <p>Zbierz dane z pomiarów i zapisuj je do tabeli.</p>
+            </div>
+
+            <div class="co-panel" data-co-section>
+                <div class="co-panel__form">
+                    <div class="co-panel__rows" data-co-rows>
+                        <div class="co-panel__row" data-co-row>
+                            <label class="co-panel__field">
+                                <span>Nr mieszkania</span>
+                                <input type="text" class="co-input" data-co-field="apartment" />
+                            </label>
+                            <label class="co-panel__field">
+                                <span>Piętro</span>
+                                <input type="text" class="co-input" data-co-field="floor" />
+                            </label>
+                            <label class="co-panel__field">
+                                <span>PPM</span>
+                                <input type="number" class="co-input" min="0" step="1" data-co-field="ppm" />
+                            </label>
+                            <label class="co-panel__field">
+                                <span>Drzwi</span>
+                                <select class="co-input" data-co-field="doorState">
+                                    <option value="" selected>Otwarte/Zamknięte</option>
+                                    <option value="Otwarte">Otwarte</option>
+                                    <option value="Zamknięte">Zamknięte</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="co-panel__actions">
+                        <button type="button" class="btn btn--ghost" data-action="add-co-row">+ Dodaj wiersz</button>
+                        <button type="button" class="btn btn--primary" data-action="save-co-rows">Zapisz</button>
+                    </div>
+                </div>
+
+                <div class="co-services">
+                    <h3 class="co-services__title">Służby</h3>
+                    <div class="co-panel__row co-services__row">
+                        <label class="co-panel__field">
+                            <span>Policja</span>
+                            <input type="text" class="co-input" data-service-field="police" />
+                        </label>
+                        <label class="co-panel__field">
+                            <span>Pogotowie</span>
+                            <input type="text" class="co-input" data-service-field="ambulance" />
+                        </label>
+                        <label class="co-panel__field">
+                            <span>P.Gazowe</span>
+                            <input type="text" class="co-input" data-service-field="gas" />
+                        </label>
+                        <label class="co-panel__field">
+                            <span>P. Techniczne</span>
+                            <input type="text" class="co-input" data-service-field="technical" />
+                        </label>
+                    </div>
+                    <div class="co-panel__actions">
+                        <button type="button" class="btn btn--primary" data-action="save-service-row">Dodaj służby do tabeli</button>
+                    </div>
+                    <div class="co-panel__table">
+                        <div class="responsive-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Policja</th>
+                                        <th scope="col">Pogotowie</th>
+                                        <th scope="col">P.Gazowe</th>
+                                        <th scope="col">P. Techniczne</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-service-table-body>
+                                    <tr data-service-empty>
+                                        <td colspan="4">Brak zapisanych wpisów służb.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="co-panel__table">
+                    <div class="responsive-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nr mieszkania</th>
+                                    <th scope="col">Piętro</th>
+                                    <th scope="col">PPM</th>
+                                    <th scope="col">Drzwi</th>
+                                </tr>
+                            </thead>
+                            <tbody data-co-table-body>
+                                <tr data-co-empty>
+                                    <td colspan="4">Brak zapisanych wpisów.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="co-panel__share">
+                        <button type="button" class="btn btn--primary" data-action="share-co-table" disabled>Udostępnij</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-panel action-panel" id="tab-fire" role="tabpanel" aria-labelledby="tab-fire-btn" data-tab-panel="fire" hidden>
+            <div class="fire-intro">
+                <h2>Pożar</h2>
+                <p>Wprowadź dane dla rot pracujących w aparatach powietrznych.</p>
+            </div>
+
+            <div class="fire-rota-list" data-fire-rotas>
+                <article class="fire-rota" data-fire-rota>
+                    <header class="fire-rota__header">
+                        <h3>ROTA</h3>
+                        <div class="fire-rota__timer-controls">
+                            <button type="button" class="fire-rota__timer-button" data-fire-timer>10:00</button>
+                        </div>
+                    </header>
+                    <div class="responsive-table fire-rota__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Stoper</th>
+                                    <th scope="col">Imię / ksywa</th>
+                                    <th scope="col">Ciśnienie wejściowe (bar)</th>
+                                    <th scope="col">Kontrola 1</th>
+                                    <th scope="col">Kontrola 2</th>
+                                    <th scope="col">Kontrola 3</th>
+                                    <th scope="col">Kontrola 4</th>
+                                    <th scope="col">Kontrola 5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" data-label="Stoper">Stoper</th>
+                                    <td data-label="Imię / ksywa"><input class="fire-input" type="text" placeholder="Imię" /></td>
+                                    <td data-label="Ciśnienie wejściowe (bar)"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 1"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 2"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 3"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 4"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 5"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" data-label="Stoper">Stoper</th>
+                                    <td data-label="Imię / ksywa"><input class="fire-input" type="text" placeholder="Imię" /></td>
+                                    <td data-label="Ciśnienie wejściowe (bar)"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 1"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 2"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 3"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 4"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                    <td data-label="Kontrola 5"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+
+            <div class="fire-rota__add">
+                <button type="button" class="btn btn--ghost" data-action="add-fire-rota">+ Dodaj rotę</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>
+
+<template id="fire-rota-template">
+    <article class="fire-rota" data-fire-rota>
+        <header class="fire-rota__header">
+            <h3>ROTA</h3>
+            <div class="fire-rota__timer-controls">
+                <button type="button" class="fire-rota__timer-button" data-fire-timer>10:00</button>
+            </div>
+        </header>
+        <div class="responsive-table fire-rota__table">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Stoper</th>
+                        <th scope="col">Imię / ksywa</th>
+                        <th scope="col">Ciśnienie wejściowe (bar)</th>
+                        <th scope="col">Kontrola 1</th>
+                        <th scope="col">Kontrola 2</th>
+                        <th scope="col">Kontrola 3</th>
+                        <th scope="col">Kontrola 4</th>
+                        <th scope="col">Kontrola 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" data-label="Stoper">Stoper</th>
+                        <td data-label="Imię / ksywa"><input class="fire-input" type="text" placeholder="Imię" /></td>
+                        <td data-label="Ciśnienie wejściowe (bar)"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 1"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 2"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 3"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 4"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 5"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Stoper">Stoper</th>
+                        <td data-label="Imię / ksywa"><input class="fire-input" type="text" placeholder="Imię" /></td>
+                        <td data-label="Ciśnienie wejściowe (bar)"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 1"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 2"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 3"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 4"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                        <td data-label="Kontrola 5"><input class="fire-input" type="number" min="0" step="1" placeholder="Bar" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+</template>
+
+<template id="co-row-template">
+    <div class="co-panel__row" data-co-row>
+        <label class="co-panel__field">
+            <span>Nr mieszkania</span>
+            <input type="text" class="co-input" data-co-field="apartment" />
+        </label>
+        <label class="co-panel__field">
+            <span>Piętro</span>
+            <input type="text" class="co-input" data-co-field="floor" />
+        </label>
+        <label class="co-panel__field">
+            <span>PPM</span>
+            <input type="number" class="co-input" min="0" step="1" data-co-field="ppm" />
+        </label>
+        <label class="co-panel__field">
+            <span>Drzwi</span>
+            <select class="co-input" data-co-field="doorState">
+                <option value="" selected>Otwarte/Zamknięte</option>
+                <option value="Otwarte">Otwarte</option>
+                <option value="Zamknięte">Zamknięte</option>
+            </select>
+        </label>
+    </div>
+</template>

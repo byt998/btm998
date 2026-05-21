@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Panel Dow&oacute;dcy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/commander-panel.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="panel-dowodcy">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+            <li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+            <li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container commander-panel" aria-labelledby="commander-heading">
+        <header class="dashboard__header">
+            <h1 id="commander-heading">Panel Dow&oacute;dcy</h1>
+            <p>Wej&#347;cie do status&oacute;w sprz&#281;tu oraz ostatniego raportu S&#322;u&#380;by Dy&#380;urnej.</p>
+        </header>
+
+        <section class="content-panel commander-launcher" data-commander-screen="home" aria-label="Wyb&oacute;r modu&#322;u panelu dow&oacute;dcy">
+            <div class="commander-launcher__grid">
+                <button type="button" class="dashboard-card commander-launcher__card" data-commander-nav="status">
+                    <span class="commander-launcher__eyebrow">Panel Dow&oacute;dcy</span>
+                    <h2 class="dashboard-card__title">Status sprz&#281;tu</h2>
+                    <p class="commander-launcher__desc">Obecna tabela status&oacute;w pojazd&oacute;w oraz ostatni raport S&#322;u&#380;by Dy&#380;urnej.</p>
+                </button>
+            </div>
+        </section>
+
+        <section class="commander-panel__screen" data-commander-screen="status" hidden aria-label="Widok statusu sprzetu">
+            <section class="content-panel commander-panel__section-header" aria-label="Naglowek statusu sprzetu">
+                <div class="vehicle-content__header">
+                    <div>
+                        <h2 class="vehicle-content__title">Status sprzetu</h2>
+                        <p class="equipment-search__hint">Dotychczasowa zawartosc panelu dowodcy.</p>
+                    </div>
+                    <button type="button" class="btn btn--ghost" data-commander-nav="home">Wstecz do wyboru</button>
+                </div>
+            </section>
+
+            <section class="content-panel" aria-label="Tabela statusow pojazdow">
+                <div class="vehicle-content__header">
+                    <h2 class="vehicle-content__title">Status Pojazdow</h2>
+                    <button type="button" class="btn btn--ghost" data-action="refresh-issues">Odswiez</button>
+                </div>
+                <p class="equipment-search__status" data-vehicle-status-loading hidden>Ladowanie danych...</p>
+                <p class="equipment-results__empty" data-vehicle-status-empty hidden>Brak danych do wyswietlenia.</p>
+                <div class="responsive-table">
+                    <table class="issues-table">
+                        <thead>
+                            <tr>
+                                <th>Woz</th>
+                                <th>Status sprzetu (%)</th>
+                                <th>Ostatnia zmiana</th>
+                                <th>Zmiana</th>
+                            </tr>
+                        </thead>
+                        <tbody data-vehicle-status-body></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="content-panel" aria-label="Tabela sluzby dyzurnej">
+                <div class="vehicle-content__header">
+                    <div>
+                        <h2 class="vehicle-content__title">Sluzba Dyzurna</h2>
+                        <p class="duty-service__meta" data-duty-summary-meta>Ladowanie ostatniego raportu...</p>
+                    </div>
+                </div>
+                <p class="equipment-search__status" data-duty-summary-loading hidden>Ladowanie danych...</p>
+                <p class="equipment-results__empty" data-duty-summary-empty hidden>Brak raportu Sluzby Dyzurnej.</p>
+                <div class="responsive-table">
+                    <table class="issues-table">
+                        <thead>
+                            <tr>
+                                <th>Nazwa</th>
+                                <th>Stan</th>
+                                <th>Brak</th>
+                                <th>Uszkodzone</th>
+                                <th>Uwagi</th>
+                                <th>Data / godzina</th>
+                                <th>Zmiana</th>
+                            </tr>
+                        </thead>
+                        <tbody data-duty-summary-body></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

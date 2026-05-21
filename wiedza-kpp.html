@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Kwalifikowana Pierwsza Pomoc</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/kpp.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/kpp.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+            <li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+            <li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container kpp-module" aria-labelledby="kpp-heading">
+        <header class="dashboard__header">
+            <h1 id="kpp-heading">Kwalifikowana Pierwsza Pomoc</h1>
+            <p>Wybierz tryb nauki lub test i pracuj na pytaniach pobieranych z Supabase.</p>
+        </header>
+
+        <section class="content-panel kpp-entry" data-kpp-entry aria-label="Wyb&oacute;r trybu">
+            <div class="kpp-entry__grid">
+                <button type="button" class="kpp-mode-card" data-kpp-mode="study">
+                    <span class="kpp-mode-card__title">Pytania</span>
+                    <span class="kpp-mode-card__desc">Zbiór aktualnych pytań</span>
+                </button>
+                <button type="button" class="kpp-mode-card" data-kpp-mode="test">
+                    <span class="kpp-mode-card__title">Test</span>
+                    <span class="kpp-mode-card__desc">Losowy zestaw maksymalnie 30 pyta&#324;, 60 sekund na pytanie.</span>
+                </button>
+            </div>
+            <p class="kpp-status" data-kpp-status hidden></p>
+        </section>
+
+        <section class="content-panel kpp-session" data-kpp-session hidden aria-label="Pytanie KPP">
+            <div class="kpp-session__header">
+                <div class="kpp-session__meta">
+                    <span class="kpp-pill" data-kpp-mode-label>Tryb</span>
+                    <span class="kpp-pill" data-kpp-progress>1 / 1</span>
+                    <span class="kpp-pill" data-kpp-errors hidden>B&#322;&#281;dy: 0</span>
+                    <span class="kpp-pill" data-kpp-timer hidden>Pozosta&#322;o: 60 s</span>
+                </div>
+                <button type="button" class="btn btn--ghost" data-kpp-action="back-to-menu">Wyb&oacute;r trybu</button>
+            </div>
+
+            <div class="kpp-question-card">
+                <p class="kpp-question-card__count" data-kpp-question-count>Pytanie 1</p>
+                <h2 class="kpp-question-card__title" data-kpp-question-text></h2>
+                <ul class="kpp-question-card__answers" data-kpp-answers></ul>
+            </div>
+
+            <div class="kpp-session__actions">
+                <button type="button" class="btn btn--ghost" data-kpp-action="previous-question" hidden>Wstecz</button>
+                <button type="button" class="btn btn--primary" data-kpp-action="next-question" hidden disabled>Nast&#281;pne</button>
+            </div>
+        </section>
+
+        <section class="content-panel kpp-result" data-kpp-result hidden aria-label="Wynik testu">
+            <div class="kpp-result__summary">
+                <span class="kpp-result__status" data-kpp-result-status>Test zdany</span>
+                <h2 data-kpp-result-title>Podsumowanie testu</h2>
+                <div class="kpp-result__stats">
+                    <article class="kpp-result__stat">
+                        <span>Poprawne</span>
+                        <strong data-kpp-correct-count>0</strong>
+                    </article>
+                    <article class="kpp-result__stat">
+                        <span>B&#322;&#281;dne</span>
+                        <strong data-kpp-wrong-count>0</strong>
+                    </article>
+                </div>
+            </div>
+
+            <div class="kpp-result__wrong-list" data-kpp-wrong-list-wrap hidden>
+                <h3>B&#322;&#281;dne odpowiedzi</h3>
+                <div class="kpp-result__wrong-items" data-kpp-wrong-list></div>
+            </div>
+
+            <div class="kpp-result__actions">
+                <button type="button" class="btn btn--primary" data-kpp-action="restart-test">Rozpocznij test ponownie</button>
+                <button type="button" class="btn btn--ghost" data-kpp-action="back-to-menu">Wyb&oacute;r trybu</button>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

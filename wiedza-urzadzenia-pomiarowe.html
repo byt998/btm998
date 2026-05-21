@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- ======================================== -->
+    <!-- Sekcja: Head modulu wiedzy              -->
+    <!-- Laduje wspolne style i skrypty          -->
+    <!-- ======================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Urzadzenia pomiarowe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/measurement-devices.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+<li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+<li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container measurement-devices" aria-labelledby="module-heading">
+        <header class="dashboard__header">
+            <h1 id="module-heading">Urzadzenia pomiarowe</h1>
+            <p>Wybierz miernik, aby zobaczyc jego zakres pomiarowy oraz progi alarmowe.</p>
+        </header>
+
+        <section class="content-panel measurement-devices__panel" aria-label="Lista urzadzen pomiarowych">
+            <div class="measurement-devices__layout">
+                <aside class="measurement-devices__list" data-device-list aria-live="polite" aria-label="Lista urzadzen">
+                    <p class="measurement-devices__placeholder" data-device-placeholder>Trwa ladowanie listy urzadzen...</p>
+                </aside>
+                <div class="measurement-devices__detail" data-device-detail hidden>
+                    <div class="measurement-devices__visual">
+                        <img data-device-image alt="" loading="lazy" hidden />
+                        <div class="measurement-devices__no-image" data-device-no-image hidden>Brak zdjecia dla tego urzadzenia.</div>
+                    </div>
+                    <div class="measurement-devices__info">
+                        <h2 class="measurement-devices__name" data-device-name></h2>
+                        <div class="responsive-table measurement-devices__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Czujnik</th>
+                                        <th scope="col">Low alarm</th>
+                                        <th scope="col">High alarm</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-device-table></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="measurement-devices__status" data-device-status hidden></p>
+        </section>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>
+

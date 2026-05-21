@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- ======================================== -->
+    <!-- Sekcja: Head modułu wiedzy              -->
+    <!-- ?aduje wspólne style i skrypty          -->
+    <!-- ======================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Quiz tygodniowy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/quiz-weekly.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+<li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+<li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard quiz-module" aria-labelledby="module-heading">
+        <header class="dashboard__header">
+            <h1 id="module-heading">Quiz tygodniowy</h1>
+            <p>Sprawdź swoją wiedzę raz w tygodniu i śledź wyniki całej JRG.</p>
+        </header>
+
+        <section class="content-panel quiz-rules" aria-label="Reguły quizu">
+            <h2>Reguły quizu</h2>
+            <ul>
+                <li>W quizie można wziąć udział raz w tygodniu - od poniedziałku do niedzieli (23:59).</li>
+                <li>Quiz składa się z <strong>10 pytań jednokrotnego wyboru</strong> (odpowiedzi A-E).</li>
+                <li>Na każde pytanie masz <strong>25 sekund</strong>. Po zaznaczeniu odpowiedzi lub przekroczeniu czasu następuje automatyczne przejście do kolejnego pytania.</li>
+                <li>Za poprawną odpowiedź otrzymujesz <strong>1 punkt</strong>.</li>
+                <li>Po ukończeniu quizu punkty zapisują się automatycznie.</li>
+                <li>Twoje wyniki z kolejnych tygodni sumują się w tabeli poniżej.</li>
+            </ul>
+        </section>
+
+        <section class="content-panel quiz-area" aria-label="Panel quizu" data-quiz-panel>
+            <div class="quiz-area__intro" data-quiz-intro>
+                <p>Gotowy? Quiz składa się z 10 pytań. Upewnij się, że masz kilka minut na spokojne udzielenie odpowiedzi.</p>
+                <button type="button" class="btn btn--primary" data-action="start-quiz">Rozpocznij quiz</button>
+            </div>
+
+            <div class="quiz-area__body" data-quiz-body hidden>
+                <header class="quiz-area__header">
+                    <div class="quiz-area__progress">
+                        <span data-quiz-progress>1 / 10</span>
+                    </div>
+                    <div class="quiz-area__timer">
+                        Pozostały czas: <span data-quiz-timer>25 s</span>
+                    </div>
+                </header>
+                <div class="quiz-area__question" data-quiz-question></div>
+                <ul class="quiz-area__answers" data-quiz-answers></ul>
+            </div>
+
+            <div class="quiz-area__summary" data-quiz-summary hidden>
+                <h2>Podsumowanie</h2>
+                <p data-quiz-score></p>
+                <p class="quiz-area__note">Wynik zapisuje się automatycznie. Suma punktów jest widoczna w tabeli poniżej.</p>
+            </div>
+
+            <p class="quiz-area__status" data-quiz-status hidden></p>
+        </section>
+
+        <section class="content-panel quiz-ranking" aria-label="Tabela wyników">
+            <div class="quiz-ranking__header">
+                <h2>Suma wyników</h2>
+                <button type="button" class="btn btn--ghost" data-action="load-ranking">Odswież tabelę</button>
+            </div>
+            <p class="quiz-ranking__hint">Tabela obejmuje łączne punkty zdobyte we wszystkich tygodniach.</p>
+            <p class="quiz-ranking__loading" data-ranking-loading>Trwa ladowanie wynikow...</p>
+            <div class="responsive-table" data-ranking-table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Miejsce</th>
+                            <th scope="col">Uzytkownik</th>
+                            <th scope="col">Punkty</th>
+                        </tr>
+                    </thead>
+                    <tbody data-ranking-body></tbody>
+                </table>
+            </div>
+            <p class="quiz-ranking__empty" data-ranking-empty hidden>Brak zapisanych wyników.</p>
+        </section>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>
+
+
+
+
+
+

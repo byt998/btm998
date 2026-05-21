@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Służba Dyżurna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/duty-service.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="sluzba-dyzurna">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+<li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+<li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container duty-service" aria-labelledby="duty-heading">
+        <header class="dashboard__header">
+            <h1 id="duty-heading">Służba Dyżurna</h1>
+            <p>Raport jest wspólny dla całej aplikacji. Po zapisaniu wszyscy użytkownicy widzą te same dane.</p>
+        </header>
+
+        <section class="content-panel" aria-label="Raport służby dyżurnej">
+            <div class="content-panel__header duty-service__header">
+                <div>
+                    <h2>Raport wyposażenia</h2>
+                    <p class="duty-service__meta" data-duty-meta>Ładowanie ostatniego raportu...</p>
+                </div>
+                <div class="duty-service__shift">
+                    <span>Zmiana użytkownika</span>
+                    <strong data-duty-shift-label>—</strong>
+                </div>
+            </div>
+
+            <p class="equipment-search__status" data-duty-loading hidden>Ładowanie danych...</p>
+            <p class="equipment-results__empty" data-duty-empty hidden>Brak pozycji do raportu.</p>
+
+            <div class="responsive-table">
+                <table class="issues-table duty-service__table">
+                    <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Norma</th>
+                            <th>Jest</th>
+                            <th>Uszkodzone</th>
+                            <th>Uwagi</th>
+                            <th>Data / godzina</th>
+                            <th>Zmiana</th>
+                        </tr>
+                    </thead>
+                    <tbody data-duty-body></tbody>
+                </table>
+            </div>
+
+            <div class="duty-service__actions">
+                <button type="button" class="btn btn--primary" data-action="save-duty-report">Zapisz raport</button>
+            </div>
+            <p class="duty-service__status" data-duty-status hidden></p>
+        </section>
+    </main>
+
+    <div class="equipment-preview-overlay" data-duty-device-overlay hidden>
+        <div class="equipment-preview equipment-preview--report duty-service__modal" role="dialog" aria-modal="true" aria-labelledby="duty-device-title">
+            <header class="equipment-preview__header">
+                <div class="equipment-preview__heading">
+                    <h2 id="duty-device-title" class="equipment-preview__title">Urządzenia Pomiarowe</h2>
+                    <p class="equipment-preview__meta">Statusy zapiszą się razem z raportem służby dyżurnej.</p>
+                </div>
+                <button type="button" class="equipment-preview__close" data-action="close-duty-device-modal" aria-label="Zamknij">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </header>
+            <div class="equipment-preview__body">
+                <div class="responsive-table">
+                    <table class="issues-table duty-service__modal-table">
+                        <thead>
+                            <tr>
+                                <th>Nazwa urządzenia</th>
+                                <th>Uszkodzony</th>
+                                <th>Brak</th>
+                                <th>W normie</th>
+                                <th>Uwagi / zdjęcie</th>
+                            </tr>
+                        </thead>
+                        <tbody data-duty-device-body></tbody>
+                    </table>
+                </div>
+            </div>
+            <footer class="equipment-preview__footer duty-service__modal-footer">
+                <button type="button" class="btn btn--primary" data-action="apply-duty-device-modal">Zastosuj zmiany</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="equipment-preview-overlay" data-duty-note-overlay hidden>
+        <div class="equipment-preview equipment-preview--report duty-service__modal" role="dialog" aria-modal="true" aria-labelledby="duty-note-title">
+            <header class="equipment-preview__header">
+                <div class="equipment-preview__heading">
+                    <h2 id="duty-note-title" class="equipment-preview__title" data-duty-note-title>Uwagi</h2>
+                    <p class="equipment-preview__meta">Zmiany zapisza sie dopiero po kliknieciu "Zapisz raport".</p>
+                </div>
+                <button type="button" class="equipment-preview__close" data-action="close-duty-note-modal" aria-label="Zamknij">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </header>
+            <div class="equipment-preview__body duty-service__note-modal-body">
+                <textarea class="duty-service__note" data-duty-line-note rows="6" placeholder="Wpisz uwagi"></textarea>
+                <button type="button" class="btn btn--ghost duty-service__file-label" data-action="open-duty-line-camera">Zrob zdjecie</button>
+                <input type="file" accept="image/*" capture="environment" data-duty-line-photo hidden />
+                <span class="duty-service__file-name" data-duty-line-file-name>Brak zdjecia</span>
+            </div>
+            <footer class="equipment-preview__footer duty-service__modal-footer">
+                <button type="button" class="btn btn--primary" data-action="apply-duty-note-modal">Zastosuj</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="equipment-preview-overlay" data-duty-camera-overlay hidden>
+        <div class="equipment-preview equipment-preview--report duty-service__modal" role="dialog" aria-modal="true" aria-labelledby="duty-camera-title">
+            <header class="equipment-preview__header">
+                <div class="equipment-preview__heading">
+                    <h2 id="duty-camera-title" class="equipment-preview__title">Aparat</h2>
+                    <p class="equipment-preview__meta">Zrob zdjecie i przypisz je do aktualnej uwagi.</p>
+                </div>
+                <button type="button" class="equipment-preview__close" data-action="close-duty-camera" aria-label="Zamknij">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </header>
+            <div class="equipment-preview__body">
+                <div class="equipment-preview__camera">
+                    <video class="equipment-preview__video" autoplay playsinline muted data-duty-camera-video></video>
+                    <canvas class="equipment-preview__canvas" data-duty-camera-canvas hidden></canvas>
+                </div>
+            </div>
+            <footer class="equipment-preview__footer duty-service__modal-footer">
+                <button type="button" class="btn btn--ghost" data-action="close-duty-camera">Anuluj</button>
+                <button type="button" class="btn btn--primary" data-action="capture-duty-camera">Zrob zdjecie</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

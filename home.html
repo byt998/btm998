@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- ======================================== -->
+    <!-- Sekcja: Head strony głównej              -->
+    <!-- Łączy arkusze stylów i ustawienia globalne -->
+    <!-- ======================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/dashboard.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="home">
+    <!-- ======================================== -->
+    <!-- Sekcja: Pasek nawigacji                   -->
+    <!-- Zawiera odnośniki do podstron i menu user -->
+    <!-- ======================================== -->
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+<li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+<li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ======================================== -->
+    <!-- Sekcja: Główna zawartość strony home      -->
+    <!-- Puste okno na dane z Supabase             -->
+    <!-- ======================================== -->
+    <main class="dashboard app-container" aria-labelledby="home-heading">
+        <header class="dashboard__header">
+            <h1 id="home-heading">Home</h1>
+            <p>Podgląd zadań na dziś i najważniejszych informacji dla zmiany.</p>
+        </header>
+        <section class="content-panel attention-panel" aria-label="Pojazdy wymagające uwagi">
+            <div class="content-panel__header attention-panel__header">
+                <div>
+                    <p class="attention-panel__eyebrow">Dashboard sytuacyjny</p>
+                    <h2>🚨 WYMAGAJĄ UWAGI</h2>
+                </div>
+                <p class="attention-panel__hint">Przytrzymaj pojazd, aby zobaczyć szczegóły.</p>
+            </div>
+            <p class="attention-panel__status" data-attention-loading>Ładowanie statusów...</p>
+            <p class="attention-panel__complete" data-attention-empty hidden>🟢 Wszystkie pojazdy kompletne</p>
+            <div class="attention-list" data-attention-list hidden></div>
+        </section>
+        <section class="content-panel feed-panel" aria-label="Zadania dnia">
+            <div class="content-panel__header">
+                <h2 data-day-label>Zadania na dziś</h2>
+                <p class="feed-empty" data-feed-empty hidden>Ładowanie danych...</p>
+            </div>
+            <div id="daily-task" class="feed-list" hidden></div>
+        </section>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

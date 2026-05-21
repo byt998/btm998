@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- ======================================== -->
+    <!-- Sekcja: Head listy wozów                 -->
+    <!-- Ustawienia meta oraz style globalne      -->
+    <!-- ======================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Listy Wozów</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/vehicle-help.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/vehicles.js" defer></script>
+    <script src="assets/js/vehicle-help.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="listy-wozow">
+    <!-- Pasek nawigacji -->
+    <nav class="top-nav app-container" aria-label="Główne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana Służby</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Wozów</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">Służba Dyżurna</a>
+                </div>
+            </li>
+            <li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprzęt JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+            <li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dowódcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">Użytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ======================================== -->
+    <!-- Sekcja: Lista wozów                      -->
+    <!-- Przyciski z kryptonimami pojazdów        -->
+    <!-- ======================================== -->
+    <main class="dashboard app-container" aria-labelledby="vehicles-heading">
+        <header class="dashboard__header">
+            <h1 id="vehicles-heading">Lista wozów bojowych</h1>
+            <p>Wybierz kryptonim, a następnie zaznacz sprzęt obecny w skrytkach.</p>
+        </header>
+
+        <section class="content-panel" aria-label="Kryptonimy wozów">
+            <div class="vehicle-grid" role="list">
+                <button type="button" class="vehicle-button" data-vehicle-code="411-22">411-22</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-23">411-23</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-25">411-25</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-26">411-26</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-51">411-51</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-43">411-43</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-71">411-71</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-91">411-91</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-59">411-59</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-22-tyl">411-22 Tył</button>
+                <button type="button" class="vehicle-button" data-vehicle-code="411-23-tyl">411-23 Tył</button>
+            </div>
+        </section>
+
+        <section class="content-panel vehicle-content" aria-label="Skrytki i sprzęt" data-vehicle-content hidden>
+            <div class="vehicle-content__header">
+                <h2 class="vehicle-content__title" data-selected-vehicle>Wybierz wóz, aby zobaczyć skrytki</h2>
+                <div class="vehicle-content__actions">
+                    <button
+                        type="button"
+                        class="vehicle-help-trigger"
+                        data-vehicle-help-open
+                        aria-haspopup="dialog"
+                        aria-controls="vehicle-help-modal"
+                        aria-label="Jak działa Lista Wozów?"
+                        title="Jak to działa?"
+                    >
+                        <span aria-hidden="true">?</span>
+                    </button>
+                    <button type="button" class="btn btn--primary" data-action="send-missing" hidden>Wyślij braki</button>
+                </div>
+            </div>
+            <p class="vehicle-content__hint" data-vehicle-hint>Po kliknięciu w sprzęt zaznaczysz go jako obecny (zielony). Niezaznaczone elementy zostaną zgłoszone jako brak.</p>
+            <section class="vehicle-info" data-vehicle-info hidden aria-label="Informacje o wybranym wozie">
+                <button
+                    type="button"
+                    class="vehicle-info__toggle"
+                    data-vehicle-info-toggle
+                    aria-expanded="false"
+                    aria-controls="vehicle-info-panel"
+                >
+                    <span>Informacje o wozie</span>
+                </button>
+                <div id="vehicle-info-panel" class="vehicle-info__panel" data-vehicle-info-panel hidden>
+                    <dl class="vehicle-info__list" data-vehicle-info-list></dl>
+                </div>
+            </section>
+            <div class="vehicle-content__body" data-compartment-list></div>
+            <p class="vehicle-content__empty" data-vehicle-empty hidden>Brak danych o skrytkach dla tego wozu. Uzupełnij tabelę w Bazie Danych.</p>
+        </section>
+
+        <div class="modal-overlay" data-missing-overlay hidden>
+            <section class="modal-content missing-panel" data-missing-panel hidden aria-live="polite">
+                <header class="missing-panel__header">
+                    <h3>Braki do wysłania</h3>
+                    <button type="button" class="btn btn--ghost" data-action="close-missing">Zamknij</button>
+                </header>
+                <p data-missing-info>Sprawdź listę braków. Zdecyduj, czy chcesz je zgłosić.</p>
+                <p class="missing-panel__empty" data-missing-empty hidden>Wszystkie pozycje zostały oznaczone jako obecne. Nie ma braków do wysłania.</p>
+                <div class="responsive-table" data-missing-table hidden>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Skrytka</th>
+                                <th scope="col">Sprzęt</th>
+                                <th scope="col">Ilość</th>
+                            </tr>
+                        </thead>
+                        <tbody data-missing-list></tbody>
+                    </table>
+                </div>
+                <div class="missing-panel__actions">
+                    <button type="button" class="btn btn--primary" data-action="confirm-missing">Wyślij</button>
+                    <button type="button" class="btn btn--ghost" data-action="close-missing">Anuluj</button>
+                </div>
+            </section>
+        </div>
+
+        <div class="modal-overlay vehicle-help-overlay" data-vehicle-help-overlay hidden>
+            <section
+                id="vehicle-help-modal"
+                class="modal-content vehicle-help-modal"
+                data-vehicle-help-modal
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="vehicle-help-title"
+                aria-describedby="vehicle-help-description"
+            >
+                <header class="vehicle-help-modal__header">
+                    <div class="vehicle-help-modal__header-copy">
+                        <p class="vehicle-help-modal__eyebrow">Instrukcja obsługi</p>
+                        <h3 id="vehicle-help-title" class="vehicle-help-modal__title">Jak działa Lista Wozów?</h3>
+                    </div>
+                    <button type="button" class="btn btn--ghost" data-vehicle-help-close>Zamknij</button>
+                </header>
+
+                <div class="vehicle-help-slide">
+                    <div class="vehicle-help-slide__media" data-vehicle-help-media-wrap>
+                        <img src="" alt="" data-vehicle-help-image hidden />
+                        <div class="vehicle-help-slide__placeholder" data-vehicle-help-placeholder>
+                            Dodaj screenshot tego kroku do katalogu instrukcji.
+                        </div>
+                    </div>
+
+                    <div class="vehicle-help-slide__content">
+                        <p class="vehicle-help-slide__step" data-vehicle-help-step>Krok 1 / 7</p>
+                        <h4 class="vehicle-help-slide__title" data-vehicle-help-slide-title>Sprawdzenie sprzętu</h4>
+                        <p id="vehicle-help-description" class="vehicle-help-slide__description" data-vehicle-help-slide-description></p>
+                    </div>
+                </div>
+
+                <footer class="vehicle-help-modal__footer">
+                    <button type="button" class="btn btn--ghost" data-vehicle-help-prev>Poprzedni</button>
+                    <button type="button" class="btn btn--primary" data-vehicle-help-next>Następny</button>
+                </footer>
+            </section>
+        </div>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

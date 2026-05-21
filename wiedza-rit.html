@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- ======================================== -->
+    <!-- Sekcja: Head modułu wiedzy              -->
+    <!-- ?aduje wspólne style i skrypty          -->
+    <!-- ======================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Rapid Intervention Team (RiT)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/rit.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+<li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+<li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container rit-module" aria-labelledby="module-heading">
+        <header class="dashboard__header">
+            <h1 id="module-heading">Rapid Intervention Team (RiT)</h1>
+            <p>Wyposażenie i procedury zespołu asekuracyjnego.</p>
+        </header>
+
+        <section class="content-panel rit-intro" aria-label="Torba RIT">
+            <div class="rit-intro__image">
+                <img src="https://rescuesystem.pl/3415-large_default/torba-rit-pack-one-torba-rit-courant.jpg" alt="Torba RIT" />
+            </div>
+            <div class="rit-intro__content">
+                <h2>Torba RIT</h2>
+                <p>Sprawdź skąad torby asekuracyjnej wykorzystywanej przez zespół RiT.</p>
+                <button type="button" class="btn btn--primary" data-action="show-rit-kit">Pokaż zawartość</button>
+            </div>
+        </section>
+
+                <section class="content-panel rit-kit" data-rit-section hidden aria-label="Zawartość torby RIT">
+            <h2>Zawartość torby</h2>
+            <p class="rit-kit__hint">Dane pobierane są bezpośrednio z RDB</p>
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Sprzęt</th>
+                            <th scope="col">Ilość</th>
+                        </tr>
+                    </thead>
+                    <tbody data-rit-table-body>
+                        <tr><td colspan="2">Ładowanie danych...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <p class="rit-status" data-rit-status hidden></p>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>
+
+

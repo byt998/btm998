@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Zadania Rot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/zadania-rot.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/zadania-rot.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+            <li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+            <li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container rota-module" aria-labelledby="rota-heading">
+        <header class="dashboard__header">
+            <h1 id="rota-heading">Zadania Rot</h1>
+            <p>Wybierz scenariusz i tryb, a nast&#281;pnie kliknij he&#322;m na mapie, aby zobaczy&#263; szczeg&oacute;&#322;y roli.</p>
+        </header>
+
+        <section class="content-panel rota-panel" aria-label="Interaktywna mapa zadan rot">
+            <div class="rota-controls">
+                <div class="rota-controls__group" role="group" aria-label="Wybierz scenariusz">
+                    <button class="rota-chip" type="button" data-rota-scenario="fire1">Po&#380;ar I w&oacute;z</button>
+                    <button class="rota-chip" type="button" data-rota-scenario="fire2">Po&#380;ar II w&oacute;z</button>
+                    <button class="rota-chip" type="button" data-rota-scenario="accident">Wypadek</button>
+                </div>
+
+                <div class="rota-controls__group rota-controls__group--mode" data-rota-mode-group hidden role="group" aria-label="Wybierz tryb">
+                    <button class="rota-chip" type="button" data-rota-mode="gear">Co zabra&#263;</button>
+                    <button class="rota-chip" type="button" data-rota-mode="tasks">Zadania</button>
+                </div>
+            </div>
+
+            <p class="rota-hint" data-rota-hint>Wybierz scenariusz, aby aktywowa&#263; map&#281; z rolami.</p>
+
+            <div class="rota-map" data-rota-map hidden>
+                <img
+                    src="assets/img/zadania-rot/woz-z-gory.svg"
+                    data-rota-image
+                    data-rota-image-preferred="assets/img/zadania-rot/woz-z-gory.png, assets/img/zadania-rot/woz-z-gory.jpg, assets/img/zadania-rot/woz-z-gory.jpeg, assets/img/zadania-rot/woz-z-gory.webp"
+                    alt="W&#243;z stra&#380;acki z g&oacute;ry z oznaczeniem miejsc za&#322;ogi"
+                />
+
+                <button type="button" class="rota-helmet rota-helmet--driver" data-rota-seat="driver">
+                    <svg viewBox="0 0 24 24" class="rota-helmet__icon" aria-hidden="true">
+                        <path d="M4 13a8 8 0 0 1 16 0v2H4z" fill="#ef4444"></path>
+                        <path d="M8 15h8v4H8z" fill="#fee2e2"></path>
+                        <path d="M11 6h2v6h-2z" fill="#0f172a"></path>
+                    </svg>
+                    <span class="sr-only">Kierowca</span>
+                </button>
+
+                <button type="button" class="rota-helmet rota-helmet--commander" data-rota-seat="commander">
+                    <svg viewBox="0 0 24 24" class="rota-helmet__icon" aria-hidden="true">
+                        <path d="M4 13a8 8 0 0 1 16 0v2H4z" fill="#ef4444"></path>
+                        <path d="M8 15h8v4H8z" fill="#fee2e2"></path>
+                        <path d="M11 6h2v6h-2z" fill="#0f172a"></path>
+                    </svg>
+                    <span class="sr-only">Dow&#243;dca</span>
+                </button>
+
+                <button type="button" class="rota-helmet rota-helmet--rear1" data-rota-seat="rear1">
+                    <svg viewBox="0 0 24 24" class="rota-helmet__icon" aria-hidden="true">
+                        <path d="M4 13a8 8 0 0 1 16 0v2H4z" fill="#ef4444"></path>
+                        <path d="M8 15h8v4H8z" fill="#fee2e2"></path>
+                        <path d="M11 6h2v6h-2z" fill="#0f172a"></path>
+                    </svg>
+                    <span class="sr-only">Rota 1</span>
+                </button>
+
+                <button type="button" class="rota-helmet rota-helmet--rear2" data-rota-seat="rear2">
+                    <svg viewBox="0 0 24 24" class="rota-helmet__icon" aria-hidden="true">
+                        <path d="M4 13a8 8 0 0 1 16 0v2H4z" fill="#ef4444"></path>
+                        <path d="M8 15h8v4H8z" fill="#fee2e2"></path>
+                        <path d="M11 6h2v6h-2z" fill="#0f172a"></path>
+                    </svg>
+                    <span class="sr-only">Rota 2</span>
+                </button>
+
+                <button type="button" class="rota-helmet rota-helmet--rear3" data-rota-seat="rear3">
+                    <svg viewBox="0 0 24 24" class="rota-helmet__icon" aria-hidden="true">
+                        <path d="M4 13a8 8 0 0 1 16 0v2H4z" fill="#ef4444"></path>
+                        <path d="M8 15h8v4H8z" fill="#fee2e2"></path>
+                        <path d="M11 6h2v6h-2z" fill="#0f172a"></path>
+                    </svg>
+                    <span class="sr-only">Rota 3</span>
+                </button>
+
+                <button type="button" class="rota-helmet rota-helmet--rear4" data-rota-seat="rear4">
+                    <svg viewBox="0 0 24 24" class="rota-helmet__icon" aria-hidden="true">
+                        <path d="M4 13a8 8 0 0 1 16 0v2H4z" fill="#ef4444"></path>
+                        <path d="M8 15h8v4H8z" fill="#fee2e2"></path>
+                        <path d="M11 6h2v6h-2z" fill="#0f172a"></path>
+                    </svg>
+                    <span class="sr-only">Rota 4</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay rota-modal" data-rota-modal hidden>
+        <div class="modal-content rota-modal__content" role="dialog" aria-modal="true" aria-labelledby="rota-modal-title">
+            <header class="rota-modal__header">
+                <h2 id="rota-modal-title" class="rota-modal__title"></h2>
+                <button type="button" class="rota-modal__close" data-rota-modal-close aria-label="Zamknij okno">&times;</button>
+            </header>
+            <div class="rota-modal__body">
+                <p class="rota-modal__meta" data-rota-modal-context></p>
+                <ul class="rota-modal__list" data-rota-modal-list></ul>
+            </div>
+            <footer class="rota-modal__footer">
+                <button type="button" class="btn btn--ghost" data-rota-modal-close>Zamknij</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

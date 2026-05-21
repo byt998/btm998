@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Wiedza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/knowledge.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+            <li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+            <li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard" aria-labelledby="knowledge-heading">
+        <header class="dashboard__header">
+            <h1 id="knowledge-heading">Biblioteka wiedzy JRG</h1>
+            <p>Wybierz modu&#322; szkoleniowy, aby przej&#347;&#263; do szczeg&oacute;&#322;owych materia&#322;&oacute;w.</p>
+        </header>
+
+        <section class="content-panel knowledge-menu" aria-label="Modu&#322;y wiedzy">
+            <div class="knowledge-menu__grid">
+                <a class="knowledge-menu__card" href="wiedza-quiz-tygodniowy.html" data-knowledge-card>
+                    <span class="knowledge-menu__title">Quiz tygodniowy</span>
+                    <span class="knowledge-menu__desc">Zestaw pyta&#324; do regularnego powtarzania najwa&#380;niejszych zagadnie&#324;.</span>
+                </a>
+                <a class="knowledge-menu__card" href="wiedza-urzadzenia-pomiarowe.html" data-knowledge-card>
+                    <span class="knowledge-menu__title">Urz&#261;dzenia pomiarowe</span>
+                    <span class="knowledge-menu__desc">Instrukcje obs&#322;ugi i kalibracji miernik&oacute;w wykorzystywanych w JRG.</span>
+                </a>
+                <a class="knowledge-menu__card" href="wiedza-rit.html" data-knowledge-card>
+                    <span class="knowledge-menu__title">RiT</span>
+                    <span class="knowledge-menu__desc">Procedury Rapid Intervention Team i dzia&#322;ania ratownictwa wewn&#281;trznego.</span>
+                </a>
+                <a class="knowledge-menu__card" href="wiedza-zadania-rot.html" data-knowledge-card>
+                    <span class="knowledge-menu__title">Zadania Rot</span>
+                    <span class="knowledge-menu__desc">Interaktywna mapa obsady wozu z podzia&#322;em: Co zabra&#263; / Zadania.</span>
+                </a>
+                <a class="knowledge-menu__card" href="wiedza-kpp.html" data-knowledge-card>
+                    <span class="knowledge-menu__title">Kwalifikowana Pierwsza Pomoc</span>
+                    <span class="knowledge-menu__desc">Tryb nauki pyta&#324; oraz test KPP z limitem czasu i podsumowaniem b&#322;&#281;d&oacute;w.</span>
+                </a>
+                <a class="knowledge-menu__card" href="wiedza-inspekcja-gotowosci.html" data-knowledge-card>
+                    <span class="knowledge-menu__title">Pytania &ndash; inspekcja gotowo&#347;ci operacyjnej</span>
+                    <span class="knowledge-menu__desc">Test i nauka pyta&#324; z dzia&#322;&oacute;w inspekcji gotowo&#347;ci operacyjnej.</span>
+                </a>
+                <a class="knowledge-menu__card" href="wiedza-procedury.html" data-knowledge-card>
+                    <span class="knowledge-menu__title">Procedury</span>
+                    <span class="knowledge-menu__desc">Dokumenty PDF z procedurami i materia&#322;ami do pracy operacyjnej.</span>
+                </a>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

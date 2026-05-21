@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Procedury</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/knowledge-documents.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+            <li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+            <li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container knowledge-documents-module" aria-labelledby="procedures-heading">
+        <header class="dashboard__header">
+            <h1 id="procedures-heading">Procedury</h1>
+            <p>Wybierz pe&#322;ne procedury PDF albo szybkie karty obrazkowe.</p>
+        </header>
+
+        <section class="content-panel procedure-start" data-procedure-screen="home" aria-label="Wyb&oacute;r typu procedur">
+            <div class="procedure-start__grid">
+                <button type="button" class="knowledge-menu__card procedure-start__card" data-procedure-nav="documents">
+                    <span class="knowledge-menu__title">Procedury</span>
+                    <span class="knowledge-menu__desc">Pe&#322;ne dokumenty PDF z podgl&#261;dem w aplikacji.</span>
+                </button>
+                <button type="button" class="knowledge-menu__card procedure-start__card" data-procedure-nav="quick">
+                    <span class="knowledge-menu__title">Procedury w Pigu&#322;ce</span>
+                    <span class="knowledge-menu__desc">Szybkie karty obrazkowe z najwa&#380;niejszymi informacjami.</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="content-panel knowledge-documents" data-procedure-screen="documents" hidden aria-label="Lista dokument&oacute;w PDF">
+            <div class="knowledge-documents__header">
+                <div>
+                    <p class="knowledge-documents__eyebrow">Dokumenty PDF</p>
+                    <h2>Wybierz procedur&#281;</h2>
+                </div>
+                <button type="button" class="btn btn--ghost" data-procedure-nav="home">Wr&oacute;&#263; do wyboru</button>
+            </div>
+
+            <p class="knowledge-documents__status" data-knowledge-documents-status>&#321;adowanie dokument&oacute;w...</p>
+            <div class="knowledge-documents__grid" data-knowledge-documents-grid></div>
+        </section>
+
+        <section class="content-panel procedure-quick" data-procedure-screen="quick" hidden aria-label="Procedury w Pigu&#322;ce">
+            <div class="knowledge-documents__header">
+                <div>
+                    <p class="knowledge-documents__eyebrow">Karty obrazkowe</p>
+                    <h2>Procedury w Pigu&#322;ce</h2>
+                </div>
+                <button type="button" class="btn btn--ghost" data-procedure-nav="home">Wr&oacute;&#263; do wyboru</button>
+            </div>
+
+            <p class="knowledge-documents__status" data-procedure-quick-status>&#321;adowanie kart...</p>
+            <div class="procedure-quick__grid" data-procedure-quick-grid></div>
+        </section>
+    </main>
+
+    <div class="pdf-viewer-modal" data-pdf-modal hidden>
+        <section class="pdf-viewer-modal__panel" role="dialog" aria-modal="true" aria-labelledby="pdf-viewer-title">
+            <header class="pdf-viewer-modal__header">
+                <h2 id="pdf-viewer-title" data-pdf-title>Dokument PDF</h2>
+                <div class="pdf-viewer-modal__actions">
+                    <a class="btn btn--ghost" data-pdf-open-target href="#" target="_blank" rel="noopener">Otw&oacute;rz w nowej karcie</a>
+                    <button type="button" class="pdf-viewer-modal__close" data-pdf-close aria-label="Zamknij podgl&#261;d PDF">&times;</button>
+                </div>
+            </header>
+            <div class="pdf-viewer-modal__toolbar" aria-label="Sterowanie PDF">
+                <span class="pdf-viewer-modal__page-info" data-pdf-page-info>Strona 0 / 0</span>
+                <div class="pdf-viewer-modal__zoom" aria-label="Zoom PDF">
+                    <button type="button" class="pdf-viewer-modal__control" data-pdf-zoom-out aria-label="Zmniejsz PDF">-</button>
+                    <button type="button" class="pdf-viewer-modal__control pdf-viewer-modal__control--reset" data-pdf-zoom-reset>100%</button>
+                    <button type="button" class="pdf-viewer-modal__control" data-pdf-zoom-in aria-label="Powi&#281;ksz PDF">+</button>
+                </div>
+            </div>
+            <p class="pdf-viewer-modal__status" data-pdf-status hidden></p>
+            <div class="pdf-viewer-modal__pages" data-pdf-pages aria-label="Podgl&#261;d PDF"></div>
+        </section>
+    </div>
+
+    <div class="quick-image-modal" data-quick-image-modal hidden>
+        <section class="quick-image-modal__panel" role="dialog" aria-modal="true" aria-labelledby="quick-image-title">
+            <header class="quick-image-modal__header">
+                <h2 id="quick-image-title" data-quick-image-title>Procedura w Pigu&#322;ce</h2>
+                <button type="button" class="quick-image-modal__close" data-quick-image-close aria-label="Zamknij podgl&#261;d obrazu">&times;</button>
+            </header>
+            <div class="quick-image-modal__viewport" data-quick-image-viewport>
+                <img class="quick-image-modal__image" data-quick-image alt="" />
+            </div>
+        </section>
+    </div>
+
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>

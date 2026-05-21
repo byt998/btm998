@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Dyspozytora | Pytania - inspekcja gotowo&#347;ci operacyjnej</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/kpp.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="assets/js/app-config.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/readiness-questions.js" defer></script>
+</head>
+<body class="layout layout--dashboard" data-page="wiedza">
+    <nav class="top-nav app-container" aria-label="G&#322;&oacute;wne menu">
+        <ul class="top-nav__links">
+            <li><a href="home.html" data-link="home">Home</a></li>
+            <li class="top-nav__item top-nav__item--submenu">
+                <button type="button" class="top-nav__submenu-toggle">Zmiana S&#322;u&#380;by</button>
+                <div class="top-nav__submenu" hidden>
+                    <a href="listy-wozow.html" data-link="listy-wozow">Lista Woz&oacute;w</a>
+                    <a href="sluzba-dyzurna.html" data-link="sluzba-dyzurna">S&#322;u&#380;ba Dy&#380;urna</a>
+                </div>
+            </li>
+            <li><a href="sprzet-jrg.html" data-link="sprzet-jrg">Sprz&#281;t JRG</a></li>
+            <li><a href="wiedza.html" data-link="wiedza">Wiedza</a></li>
+            <li><a href="na-akcji.html" data-link="na-akcji">Na Akcji</a></li>
+            <li><a href="panel-dowodcy.html" data-link="panel-dowodcy">Panel Dow&oacute;dcy</a></li>
+        </ul>
+        <div class="top-nav__user">
+            <button class="top-nav__user-toggle" type="button" aria-haspopup="true" aria-expanded="false">U&#380;ytkownik</button>
+            <div class="top-nav__user-menu" hidden>
+                <button type="button" data-action="logout">Wyloguj</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard app-container kpp-module readiness-module" aria-labelledby="readiness-heading">
+        <header class="dashboard__header">
+            <h1 id="readiness-heading">Pytania &ndash; inspekcja gotowo&#347;ci operacyjnej</h1>
+            <p>Wybierz tryb pracy, a nast&#281;pnie dzia&#322; pyta&#324; pobieranych z osobnych tabel Supabase.</p>
+        </header>
+
+        <section class="content-panel kpp-entry" data-readiness-entry aria-label="Wyb&oacute;r trybu">
+            <div class="kpp-entry__grid">
+                <button type="button" class="kpp-mode-card" data-readiness-mode="test">
+                    <span class="kpp-mode-card__title">Test</span>
+                    <span class="kpp-mode-card__desc">Losowy zestaw maksymalnie 30 pyta&#324;, 120 sekund na pytanie.</span>
+                </button>
+                <button type="button" class="kpp-mode-card" data-readiness-mode="study">
+                    <span class="kpp-mode-card__title">Nauka</span>
+                    <span class="kpp-mode-card__desc">Pytania po kolei wed&#322;ug kolejno&#347;ci z tabeli.</span>
+                </button>
+            </div>
+            <p class="kpp-status" data-readiness-status hidden></p>
+        </section>
+
+        <section class="content-panel kpp-entry readiness-departments" data-readiness-departments hidden aria-label="Wyb&oacute;r dzia&#322;u">
+            <div class="readiness-section-header">
+                <div>
+                    <p class="kpp-question-card__count">Wyb&oacute;r dzia&#322;u</p>
+                    <h2 data-readiness-mode-title>Tryb</h2>
+                </div>
+                <button type="button" class="btn btn--ghost" data-readiness-action="back-to-entry">Wyb&oacute;r trybu</button>
+            </div>
+            <div class="readiness-department-grid" data-readiness-department-grid></div>
+            <p class="kpp-status" data-readiness-department-status hidden></p>
+        </section>
+
+        <section class="content-panel kpp-session" data-readiness-session hidden aria-label="Pytanie">
+            <div class="kpp-session__header">
+                <div class="kpp-session__meta">
+                    <span class="kpp-pill" data-readiness-mode-label>Tryb</span>
+                    <span class="kpp-pill" data-readiness-department-label>Dzia&#322;</span>
+                    <span class="kpp-pill" data-readiness-progress>1 / 1</span>
+                    <span class="kpp-pill" data-readiness-timer hidden>Pozosta&#322;o: 120 s</span>
+                </div>
+                <button type="button" class="btn btn--ghost" data-readiness-action="back-to-departments">Wyb&oacute;r dzia&#322;u</button>
+            </div>
+
+            <div class="kpp-question-card">
+                <p class="kpp-question-card__count" data-readiness-question-count>Pytanie 1</p>
+                <div class="question-image-wrap" data-readiness-image-wrap hidden></div>
+                <h2 class="kpp-question-card__title" data-readiness-question-text></h2>
+                <ul class="kpp-question-card__answers" data-readiness-answers></ul>
+            </div>
+
+            <div class="kpp-session__actions">
+                <div class="readiness-question-jump" data-readiness-study-jump hidden>
+                    <label for="readiness-jump-input">Przejd&#378; do pytania</label>
+                    <input id="readiness-jump-input" type="number" min="1" inputmode="numeric" data-readiness-jump-input />
+                    <button type="button" class="btn btn--ghost" data-readiness-action="jump-to-question">Przejd&#378;</button>
+                </div>
+                <button type="button" class="btn btn--ghost" data-readiness-action="previous-question" hidden>Wstecz</button>
+                <button type="button" class="btn btn--primary" data-readiness-action="next-question" hidden disabled>Nast&#281;pne</button>
+            </div>
+        </section>
+
+        <section class="content-panel kpp-result" data-readiness-result hidden aria-label="Wynik testu">
+            <div class="kpp-result__summary">
+                <span class="kpp-result__status is-passed" data-readiness-result-status>Wynik testu</span>
+                <h2 data-readiness-result-title>Wynik: 0 / 0</h2>
+                <div class="kpp-result__stats">
+                    <article class="kpp-result__stat">
+                        <span>Poprawne</span>
+                        <strong data-readiness-correct-count>0</strong>
+                    </article>
+                    <article class="kpp-result__stat">
+                        <span>Liczba pyta&#324;</span>
+                        <strong data-readiness-total-count>0</strong>
+                    </article>
+                </div>
+            </div>
+
+            <div class="kpp-result__actions">
+                <button type="button" class="btn btn--primary" data-readiness-action="restart-test">Rozpocznij test ponownie</button>
+                <button type="button" class="btn btn--ghost" data-readiness-action="back-to-departments">Wyb&oacute;r dzia&#322;u</button>
+                <button type="button" class="btn btn--ghost" data-readiness-action="back-to-entry">Wyb&oacute;r trybu</button>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/pwa.js"></script>
+</body>
+</html>
